@@ -23,6 +23,8 @@
   },
   "homepage": "https://github.com/hq-jiang/cloud-dev-share-leftovers-app#readme",
   "devDependencies": {
+    "@types/aws-lambda": "^8.10.53",
+    "aws-sdk": "^2.692.0",
     "serverless-iam-roles-per-function": "^2.0.2",
     "serverless-offline": "^6.4.0",
     "serverless-s3-local": "^0.6.1",
@@ -33,7 +35,9 @@
     "webpack-cli": "^3.3.11"
   },
   "dependencies": {
+    "serverless": "^1.72.0",
     "serverless-dynamodb-local": "^0.2.39",
-    "serverless-reqvalidator-plugin": "^1.0.3"
+    "serverless-reqvalidator-plugin": "^1.0.3",
+    "source-map-support": "^0.5.19"
   }
 }
