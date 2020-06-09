@@ -1,0 +1,39 @@
+{
+  "name": "share-leftovers",
+  "version": "1.0.0",
+  "description": "Backend for app that allows user to share their leftovers online",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hq-jiang/cloud-dev-share-leftovers-app.git"
+  },
+  "keywords": [
+    "webapp",
+    "food",
+    "share",
+    "social"
+  ],
+  "author": "Hanqiu Jiang",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/hq-jiang/cloud-dev-share-leftovers-app/issues"
+  },
+  "homepage": "https://github.com/hq-jiang/cloud-dev-share-leftovers-app#readme",
+  "devDependencies": {
+    "serverless-iam-roles-per-function": "^2.0.2",
+    "serverless-offline": "^6.4.0",
+    "serverless-s3-local": "^0.6.1",
+    "serverless-webpack": "^5.3.2",
+    "ts-loader": "^7.0.5",
+    "typescript": "^3.9.5",
+    "webpack": "^4.43.0",
+    "webpack-cli": "^3.3.11"
+  },
+  "dependencies": {
+    "serverless-dynamodb-local": "^0.2.39",
+    "serverless-reqvalidator-plugin": "^1.0.3"
+  }
+}
