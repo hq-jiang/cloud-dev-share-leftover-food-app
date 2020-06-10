@@ -1,7 +1,7 @@
 import { DocumentClient } from 'aws-sdk/clients/dynamodb'
 import { createLogger } from '../utils/logger'
 import { Item } from  '../models/Item'
-// import { TodoUpdate } from  '../models/TodoUpdate'
+import { ItemUpdate } from  '../models/ItemUpdate'
 
 const AWS = require('aws-sdk')
 const AWSX = useAWSX()
@@ -80,35 +80,37 @@ export class ItemsAccess {
 
 
 
-  // async updateTodo(todoId: string, updatedTodo: TodoUpdate): Promise<TodoUpdate>{
-  //   const paramsGet = {
-  //     TableName: process.env.TODOS_TABLE,
-  //     KeyConditionExpression: 'todoId = :todoIddelete',
-  //     ExpressionAttributeValues: {
-  //       ':todoIddelete': todoId,
-  //     }
-  //   }
-  //   const todo = await this.documentClient.query(paramsGet).promise()
-  
-  //   var params = {
-  //     TableName: process.env.TODOS_TABLE,
-  //     Key: { 
-  //       todoId : todoId, 
-  //       createdAt: todo.Items[0].createdAt 
-  //     },
-  //     UpdateExpression: 'set #name = :updatedName, #dueDate = :updatedDueDate, #done = :updatedDone',
-  //     ExpressionAttributeNames: {'#name' : 'name', '#dueDate': 'dueDate', '#done': 'done'},
-  //     ExpressionAttributeValues: {
-  //       ':updatedName' : updatedTodo.name,
-  //       ':updatedDueDate' : updatedTodo.dueDate,
-  //       ':updatedDone' : updatedTodo.done,
-  //     }
-  //   };
-  
-  //   await this.documentClient.update(params).promise();
-    
-  //   return updatedTodo
-  // }
+  async updateItem(itemId: string, updatedItem: ItemUpdate): Promise<ItemUpdate>{
+    const paramsGet = {
+      TableName: TABLENAME,
+      KeyConditionExpression: 'itemId = :itemIddelete',
+      ExpressionAttributeValues: {
+        ':itemIddelete': itemId,
+      }
+    }
+    logger.info('Getting item')
+    const item = await this.documentClient.query(paramsGet).promise()
+    logger.info('Item Retrieved')
+
+    var params = {
+      TableName: TABLENAME,
+      Key: { 
+        itemId : itemId, 
+        createdAt: item.Items[0].createdAt 
+      },
+      UpdateExpression: 'set #name = :updatedName, #description = :updatedDescription, #contact = :updatedContact',
+      ExpressionAttributeNames: {'#name' : 'name', '#description': 'description', '#contact': 'contact'},
+      ExpressionAttributeValues: {
+        ':updatedName' : updatedItem.name,
+        ':updatedDescription' : updatedItem.description,
+        ':updatedContact' : updatedItem.contact,
+      }
+    };
+    logger.info('Updating item')
+    await this.documentClient.update(params).promise();
+    logger.info('Item updated')
+    return updatedItem
+  }
 
   // async updateAttachmentUrl(todoId: string) {
   //   const paramsGet = {

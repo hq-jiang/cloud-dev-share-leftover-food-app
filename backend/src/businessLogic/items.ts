@@ -3,7 +3,7 @@ import { ItemsAccess } from '../dataLayer/itemsAccess'
 import { Item } from '../models/Item'
 import { v4 } from 'uuid';
 import { createLogger } from '../utils/logger';
-// import { UpdateTodoRequest } from '../requests/UpdateTodoRequest'
+import { UpdateItemRequest } from '../requests/UpdateItemRequest'
 
 const logger = createLogger('BusinessLogic-todo')
 
@@ -44,11 +44,11 @@ export async function deleteItem(itemId: string): Promise<any>{
 //   return todos
 // }
 
-// export async function updateTodo(todoId: string, updatedTodo: UpdateTodoRequest) {
-//   logger.info('update body', updatedTodo)
-//   const updateditem = await todosAccess.updateTodo(todoId, updatedTodo)
-//   return updateditem
-// }
+export async function updateItem(todoId: string, updatedItem: UpdateItemRequest) {
+  logger.info('update body', updatedItem)
+  const updateditem = await itemsAccess.updateItem(todoId, updatedItem)
+  return updateditem
+}
 
 // export async function updateAttachmentUrl(todoId: string): Promise<string> {
 //   logger.info('update attachmentUrl')

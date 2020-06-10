@@ -104,33 +104,32 @@ functions:
 #         Resource:
 #           - "*"
 
-#   # TODO: Configure this function
-#   UpdateTodo:
-#     handler: src/lambda/http/updateTodo.handler
-#     events:
-#       - http:
-#           method: patch
-#           path: todos/{todoId}
-#           cors: true
-#           authorizer: Auth
-#           reqValidatorName: RequestBodyValidator
-#           documentation:
-#             summary: Update a todo
-#             description: Update a todo
-#             requestModels:
-#               'application/json': UpdateTodoRequest
-#     iamRoleStatementsName: updateTodo-role
-#     iamRoleStatements:
-#       - Effect: "Allow"        
-#         Action:
-#           - dynamodb:UpdateItem
-#           - dynamodb:Query     
-#         Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.TODOS_TABLE}
-#       - Effect: Allow
-#         Action:
-#           - xray:PutTraceSegments
-#         Resource:
-#           - "*"
+  UpdateItem:
+    handler: src/lambda/http/updateItem.handler
+    events:
+      - http:
+          method: patch
+          path: feed/{itemId}
+          cors: true
+          # authorizer: Auth
+          # reqValidatorName: RequestBodyValidator
+          # documentation:
+          #   summary: Update a todo
+          #   description: Update a todo
+          #   requestModels:
+          #     'application/json': UpdateTodoRequest
+    # iamRoleStatementsName: updateTodo-role
+    # iamRoleStatements:
+    #   - Effect: "Allow"        
+    #     Action:
+    #       - dynamodb:UpdateItem
+    #       - dynamodb:Query     
+    #     Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.TODOS_TABLE}
+    #   - Effect: Allow
+    #     Action:
+    #       - xray:PutTraceSegments
+    #     Resource:
+    #       - "*"
 
   DeleteItem:
     handler: src/lambda/http/deleteItem.handler
