@@ -48,7 +48,7 @@ custom:
     # adress: 0.0.0.0 
     # Uncomment the following line only if you want to specify S3 server address. 
     # Ordinary, this value is localhost. But you can modify this value to use other S3 server. 
-    # host: 0.0.0.0 
+    # host: 0.0.0.0
     port: 8001
     directory: /tmp
 
@@ -56,25 +56,25 @@ functions:
   Auth:
     handler: src/lambda/auth/auth0Authorizer.handler
 
-  GetFeed:
-    handler: src/lambda/http/getFeed.handler
-    events:
-      - http:
-          method: get
-          path: feed
-          cors: true
-          authorizer: Auth
-    iamRoleStatementsName: getFeed-role
-    iamRoleStatements:
-      - Effect: "Allow"        
-        Action:
-          - dynamodb:Scan        
-        Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.ITEMS_TABLE}
-      - Effect: Allow
-        Action:
-          - xray:PutTraceSegments
-        Resource:
-          - "*"
+  # GetFeed:
+  #   handler: src/lambda/http/getFeed.handler
+  #   events:
+  #     - http:
+  #         method: get
+  #         path: feed
+  #         cors: true
+  #         authorizer: Auth
+  #   iamRoleStatementsName: getFeed-role
+  #   iamRoleStatements:
+  #     - Effect: "Allow"
+  #       Action:
+  #         - dynamodb:Scan
+  #       Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.ITEMS_TABLE}
+  #     - Effect: Allow
+  #       Action:
+  #         - xray:PutTraceSegments
+  #       Resource:
+  #         - "*"
   GetUserItems:
     handler: src/lambda/http/getUserItems.handler
     events:
@@ -85,9 +85,9 @@ functions:
           authorizer: Auth
     iamRoleStatementsName: getUserItems-role
     iamRoleStatements:
-      - Effect: "Allow"        
+      - Effect: "Allow"
         Action:
-          - dynamodb:Query        
+          - dynamodb:Query
         Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.ITEMS_TABLE}/index/${self:provider.environment.INDEX_NAME}
       - Effect: Allow
         Action:
@@ -111,9 +111,9 @@ functions:
               'application/json': CreateItemRequest
     iamRoleStatementsName: createItems-role
     iamRoleStatements:
-      - Effect: "Allow"        
+      - Effect: "Allow"
         Action:
-          - dynamodb:PutItem        
+          - dynamodb:PutItem
         Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.ITEMS_TABLE}
       - Effect: Allow
         Action:
@@ -137,10 +137,10 @@ functions:
               'application/json': UpdateItemRequest
     iamRoleStatementsName: updateItem-role
     iamRoleStatements:
-      - Effect: "Allow"        
+      - Effect: "Allow"
         Action:
           - dynamodb:UpdateItem
-          - dynamodb:Query     
+          - dynamodb:Query
         Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.ITEMS_TABLE}
       - Effect: Allow
         Action:
@@ -158,10 +158,10 @@ functions:
           authorizer: Auth
     iamRoleStatementsName: deleteItem-role
     iamRoleStatements:
-      - Effect: "Allow"        
+      - Effect: "Allow"
         Action:
           - dynamodb:DeleteItem
-          - dynamodb:Query     
+          - dynamodb:Query
         Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.ITEMS_TABLE}
       - Effect: Allow
         Action:
