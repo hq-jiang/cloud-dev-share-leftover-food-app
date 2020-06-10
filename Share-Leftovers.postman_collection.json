@@ -136,6 +136,24 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "Upload file",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "file",
+					"file": {}
+				},
+				"url": {
+					"raw": "{{Generated upload https://share-leftovers-aeon-dev.s3.eu-central-1.amazonaws.com/...}}",
+					"host": [
+						"{{Generated upload https://share-leftovers-aeon-dev.s3.eu-central-1.amazonaws.com/...}}"
+					]
+				}
+			},
+			"response": []
 		}
 	],
 	"auth": {
@@ -182,7 +200,7 @@
 	],
 	"variable": [
 		{
-			"id": "a42940ff-a0df-4cb9-91bd-10592b1feb47",
+			"id": "6a6d1e4d-8d9b-421b-8c13-12fe27f08efd",
 			"key": "apiEndpoint",
 			"value": "b9rsz7l5g9.execute-api.eu-central-1.amazonaws.com/dev",
 			"type": "string"

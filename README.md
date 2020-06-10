@@ -1,5 +1,21 @@
-# Share Leftover Food App
+# Share Leftovers App
 
+## Overview
+
+This app lets users share images of their leftover food. Other people can contact them and fetch the leftovers.
+Users are able to login, get, update and delete their items. And can also upload images.
+
+Endpoints:
+- GET - https://b9rsz7l5g9.execute-api.eu-central-1.amazonaws.com/dev/useritems
+- POST - https://b9rsz7l5g9.execute-api.eu-central-1.amazonaws.com/dev/feed
+- PATCH - https://b9rsz7l5g9.execute-api.eu-central-1.amazonaws.com/dev/feed/{itemId}
+- DELETE - https://b9rsz7l5g9.execute-api.eu-central-1.amazonaws.com/dev/feed/{itemId}
+- POST - https://b9rsz7l5g9.execute-api.eu-central-1.amazonaws.com/dev/feed/{itemId}/attachment
+
+## Instructions with Postman
+
+1. Authenticate postman
+2. Use Postman requests
 
 ### How to authenticate in Postman
 
@@ -26,3 +42,35 @@
 ![alt text](./docs/auth_instructions_2.png)
 ![alt text](./docs/auth_instructions_3.png)
 8. Now you should be able to do all requests.
+
+### How to use Postman collection
+
+Example workflow:
+1. Create two items
+2. Get user items
+3. Update one item by giving a itemId (get this from previous request 2.)
+4. Get user items
+5. Delete one item by giving a itemId
+6. Get user items
+7. Get upload url by giving a itemId
+8. Upload image, by copying returned Url into the `Upload file` PUT request with a binary body, where you select a local file to upload
+
+
+
+
+## Deployment
+To deploy an application run the following commands:
+
+```
+cd backend
+npm install
+sls deploy -v
+```
+
+## Run local version
+```
+cd backend
+npm install
+sls dynamodb install
+sls offline start
+```
