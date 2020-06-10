@@ -9,7 +9,7 @@ const AWSX = useAWSX()
 // Read env variables
 const TABLENAME : string = process.env.ITEMS_TABLE
 const INDEXNAME: string = process.env.INDEX_NAME
-// const s3BucketName = process.env.ATTACHMENT_S3_BUCKET
+const s3BucketName = process.env.ATTACHMENT_S3_BUCKET
 
 const logger = createLogger('dataLayer-itemsAccess')
 
@@ -116,35 +116,35 @@ export class ItemsAccess {
     return updatedItem
   }
 
-  // async updateAttachmentUrl(todoId: string) {
-  //   const paramsGet = {
-  //     TableName: process.env.TODOS_TABLE,
-  //     KeyConditionExpression: 'todoId = :toUpdate',
-  //     ExpressionAttributeValues: {
-  //       ':toUpdate': todoId,
-  //     }
-  //   }
-  //   const todo = await this.documentClient.query(paramsGet).promise()
-  //   logger.info('get todo', todo)
+  async updateAttachmentUrl(itemId: string) {
+    const paramsGet = {
+      TableName: TABLENAME,
+      KeyConditionExpression: 'itemId = :toUpdate',
+      ExpressionAttributeValues: {
+        ':toUpdate': itemId,
+      }
+    }
+    const item = await this.documentClient.query(paramsGet).promise()
+    logger.info('get item', item)
 
-  //   const url = `https://${s3BucketName}.s3.eu-central-1.amazonaws.com/${todoId}`
+    const url = `https://${s3BucketName}.s3.eu-central-1.amazonaws.com/${itemId}`
   
-  //   var params = {
-  //     TableName: process.env.TODOS_TABLE,
-  //     Key: { 
-  //       todoId : todoId, 
-  //       createdAt: todo.Items[0].createdAt 
-  //     },
-  //     UpdateExpression: 'set #attachmentUrl = :updatedUrl',
-  //     ExpressionAttributeNames: {'#attachmentUrl' : 'attachmentUrl'},
-  //     ExpressionAttributeValues: {
-  //       ':updatedUrl' : url
-  //     }
-  //   }
-  //   await this.documentClient.update(params).promise();
+    var params = {
+      TableName: TABLENAME,
+      Key: { 
+        itemId : itemId, 
+        createdAt: item.Items[0].createdAt 
+      },
+      UpdateExpression: 'set #attachmentUrl = :updatedUrl',
+      ExpressionAttributeNames: {'#attachmentUrl' : 'attachmentUrl'},
+      ExpressionAttributeValues: {
+        ':updatedUrl' : url
+      }
+    }
+    await this.documentClient.update(params).promise();
     
-  //   return url
-  // }
+    return url
+  }
 }
 
 function createDocumentClient() {

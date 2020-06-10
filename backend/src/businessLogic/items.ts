@@ -50,9 +50,9 @@ export async function updateItem(todoId: string, updatedItem: UpdateItemRequest)
   return updateditem
 }
 
-// export async function updateAttachmentUrl(todoId: string): Promise<string> {
-//   logger.info('update attachmentUrl')
-//   const attachmentUrl = await todosAccess.updateAttachmentUrl(todoId)
-//   logger.info('attachmentUrl', attachmentUrl)
-//   return attachmentUrl
-// }
+export async function updateAttachmentUrl(itemId: string): Promise<string> {
+  logger.info('update attachmentUrl')
+  const attachmentUrl = await itemsAccess.updateAttachmentUrl(itemId)
+  logger.info('attachmentUrl', attachmentUrl)
+  return attachmentUrl
+}
