@@ -1,5 +1,5 @@
 service:
-  name: serverless-todo-app
+  name: serverless-share-leftovers-app
 
 plugins:
   - serverless-webpack
@@ -17,7 +17,7 @@ provider:
   environment:
     ITEMS_TABLE: Items-${self:provider.stage}
     INDEX_NAME: UserIdIndex
-    ATTACHMENT_S3_BUCKET: todo-aeon-${self:provider.stage}
+    ATTACHMENT_S3_BUCKET: share-leftovers-aeon-${self:provider.stage}
 
 #   tracing:
 #     lambda: true
@@ -64,13 +64,13 @@ functions:
           path: feed
           cors: true
           authorizer: Auth
-#     iamRoleStatementsName: getTodo-role
-#     iamRoleStatements:
-#       - Effect: "Allow"        
-#         Action:
-#           - dynamodb:Query        
-#         Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.TODOS_TABLE}/index/${self:provider.environment.INDEX_NAME}
-#       - Effect: Allow
+    iamRoleStatementsName: getFeed-role
+    iamRoleStatements:
+      - Effect: "Allow"        
+        Action:
+          - dynamodb:Scan        
+        Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.ITEMS_TABLE}
+      # - Effect: Allow
 #         Action:
 #           - xray:PutTraceSegments
 #         Resource:
@@ -83,19 +83,18 @@ functions:
           path: useritems
           cors: true
           authorizer: Auth
-  #     iamRoleStatementsName: getTodo-role
-  #     iamRoleStatements:
-  #       - Effect: "Allow"        
-  #         Action:
-  #           - dynamodb:Query        
-  #         Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.TODOS_TABLE}/index/${self:provider.environment.INDEX_NAME}
+    iamRoleStatementsName: getUserItems-role
+    iamRoleStatements:
+      - Effect: "Allow"        
+        Action:
+          - dynamodb:Query        
+        Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.ITEMS_TABLE}/index/${self:provider.environment.INDEX_NAME}
   #       - Effect: Allow
   #         Action:
   #           - xray:PutTraceSegments
   #         Resource:
   #           - "*"
 
-  # TODO: Configure this function
   CreateItems:
     handler: src/lambda/http/createItem.handler
     events:
@@ -110,12 +109,12 @@ functions:
             description: Create a new item
             requestModels:
               'application/json': CreateItemRequest
-#     iamRoleStatementsName: createTodo-role
-#     iamRoleStatements:
-#       - Effect: "Allow"        
-#         Action:
-#           - dynamodb:PutItem        
-#         Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.TODOS_TABLE}
+    iamRoleStatementsName: createItems-role
+    iamRoleStatements:
+      - Effect: "Allow"        
+        Action:
+          - dynamodb:PutItem        
+        Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.ITEMS_TABLE}
 #       - Effect: Allow
 #         Action:
 #           - xray:PutTraceSegments
@@ -136,13 +135,13 @@ functions:
             description: Update an item
             requestModels:
               'application/json': UpdateItemRequest
-    # iamRoleStatementsName: updateTodo-role
-    # iamRoleStatements:
-    #   - Effect: "Allow"        
-    #     Action:
-    #       - dynamodb:UpdateItem
-    #       - dynamodb:Query     
-    #     Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.TODOS_TABLE}
+    iamRoleStatementsName: updateItem-role
+    iamRoleStatements:
+      - Effect: "Allow"        
+        Action:
+          - dynamodb:UpdateItem
+          - dynamodb:Query     
+        Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.ITEMS_TABLE}
     #   - Effect: Allow
     #     Action:
     #       - xray:PutTraceSegments
@@ -157,13 +156,13 @@ functions:
           path: feed/{itemId}
           cors: true
           authorizer: Auth
-    # iamRoleStatementsName: deleteItem-role
-    # iamRoleStatements:
-    #   - Effect: "Allow"        
-    #     Action:
-    #       - dynamodb:DeleteItem
-    #       - dynamodb:Query     
-    #     Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.TODOS_TABLE}
+    iamRoleStatementsName: deleteItem-role
+    iamRoleStatements:
+      - Effect: "Allow"        
+        Action:
+          - dynamodb:DeleteItem
+          - dynamodb:Query     
+        Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.ITEMS_TABLE}
 #       - Effect: Allow
 #         Action:
 #           - xray:PutTraceSegments
@@ -178,18 +177,18 @@ functions:
           cors: true
           path: feed/{itemId}/attachment
           authorizer: Auth
-#     iamRoleStatementsName: GenerateUploadUrl-role
-#     iamRoleStatements:
-#       - Effect: Allow
-#         Action:
-#           - s3:PutObject
-#           - s3:GetObject
-#         Resource: arn:aws:s3:::${self:provider.environment.ATTACHMENT_S3_BUCKET}/*
-#       - Effect: "Allow"        
-#         Action:
-#           - dynamodb:UpdateItem
-#           - dynamodb:Query     
-#         Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.TODOS_TABLE}
+    iamRoleStatementsName: GenerateUploadUrl-role
+    iamRoleStatements:
+      - Effect: Allow
+        Action:
+          - s3:PutObject
+          - s3:GetObject
+        Resource: arn:aws:s3:::${self:provider.environment.ATTACHMENT_S3_BUCKET}/*
+      - Effect: "Allow"        
+        Action:
+          - dynamodb:UpdateItem
+          - dynamodb:Query     
+        Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.ITEMS_TABLE}
 #       - Effect: Allow
 #         Action:
 #           - xray:PutTraceSegments
@@ -199,7 +198,6 @@ functions:
 
 resources:
   Resources:
-    # TODO: Add any necessary AWS resources
     TodosTable:
       Type: AWS::DynamoDB::Table
       Properties:
