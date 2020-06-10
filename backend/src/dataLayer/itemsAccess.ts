@@ -51,30 +51,32 @@ export class ItemsAccess {
     return items
   }
 
-  // async deleteTodo(todoId : string): Promise<any> {
-  //   // First find the createdAt field for the todo, since it is part of the composite key
-  //   const paramsGet = {
-  //     TableName: process.env.TODOS_TABLE,
-  //     KeyConditionExpression: 'todoId = :todoIddelete',
-  //     ExpressionAttributeValues: {
-  //       ':todoIddelete': todoId,
-  //     }
-  //   }
-  //   const todo = await this.documentClient.query(paramsGet).promise()
-  //   logger.info('get todo', todo)
+  async deleteItem(itemId : string): Promise<any> {
+    // First find the createdAt field for the item, since it is part of the composite key
+    const paramsGet = {
+      TableName: TABLENAME,
+      KeyConditionExpression: 'itemId = :itemIddelete',
+      ExpressionAttributeValues: {
+        ':itemIddelete': itemId,
+      }
+    }
+    console.log(paramsGet)
+    logger.info('getting item')
+    const item = await this.documentClient.query(paramsGet).promise()
+    logger.info('retrieved item', item)
 
-  //   const paramsDelete = {
-  //     TableName : TABLENAME,
-  //     Key: {
-  //       todoId: todoId,
-  //       createdAt: todo.Items[0].createdAt
-  //     }
-  //   };
-    
-  //   await this.documentClient.delete(paramsDelete).promise()
-  //   logger.info('deleted todo', todo)
-  //   return todo
-  // }
+    const paramsDelete = {
+      TableName : TABLENAME,
+      Key: {
+        itemId: itemId,
+        createdAt: item.Items[0].createdAt
+      }
+    };
+    logger.info('deleting item', item)
+    await this.documentClient.delete(paramsDelete).promise()
+    logger.info('item deleted', item)
+    return item
+  }
 
 
 

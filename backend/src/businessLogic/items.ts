@@ -18,24 +18,24 @@ export async function getFeed(): Promise<any>{
 
 export async function createItem(newItem: CreateItemRequest, userId: string): Promise<Item> {
 
-    const item: Item = {
-        ...newItem,
-        userId: userId,
-        itemId: v4(),
-        createdAt: new Date().toISOString(),
-      }
-      logger.info('New item instantiated', item)
-    
-      await itemsAccess.createItem(item)
+  const item: Item = {
+      ...newItem,
+      userId: userId,
+      itemId: v4(),
+      createdAt: new Date().toISOString(),
+    }
+    logger.info('New item instantiated', item)
+  
+    await itemsAccess.createItem(item)
 
-    return item
+  return item
 }
 
-// export async function deleteTodo(todoId: string): Promise<any>{
+export async function deleteItem(itemId: string): Promise<any>{
   
-//   const todo = await todosAccess.deleteTodo(todoId)
-//   return todo
-// }
+  const todo = await itemsAccess.deleteItem(itemId)
+  return todo
+}
 
 // export async function getTodos(userId: string): Promise<any>{
 //   logger.info('Query db for todos')

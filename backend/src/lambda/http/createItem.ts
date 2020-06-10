@@ -11,16 +11,30 @@ export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEven
   const userId : string = 'user1234' // getUserId(event)
 
   // TODO: Implement creating a new TODO item
-  const item = await createItem(newTodo, userId)
+  try {
+    const item = await createItem(newTodo, userId)
 
-  return {
-    statusCode: 201,
-    headers: {
-      'Access-Control-Allow-Origin': '*',
-      'Access-Control-Allow-Credentials': true
-    },
-    body: JSON.stringify({
-      item
-    })
+    return {
+      statusCode: 201,
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Credentials': true
+      },
+      body: JSON.stringify({
+        item
+      })
+    }
+  } catch(error) {
+    return {
+      statusCode: 500,
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Credentials': true
+      },
+      body: JSON.stringify({
+        error
+      })
+    }
   }
+  
 }
