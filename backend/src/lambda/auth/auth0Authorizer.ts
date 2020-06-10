@@ -33,7 +33,6 @@ export const handler = async (event: CustomAuthorizerEvent): Promise<CustomAutho
   const token = split[1]
 
   try {
-    console.log(token)
     const decodedToken = verify(
       token,           // Token from an HTTP header to validate
       cert,            // A certificate copied from Auth0 website

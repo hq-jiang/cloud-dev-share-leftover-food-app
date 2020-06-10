@@ -24,13 +24,13 @@ provider:
 #     apiGateway: true
 
 custom:
-#   models:
-#     - name: CreateTodoRequest
-#       contentType: application/json
-#       schema: ${file(src/models/create-todo-request.json)}
-#     - name: UpdateTodoRequest
-#       contentType: application/json
-#       schema: ${file(src/models/update-todo-request.json)}
+  models:
+    - name: CreateItemRequest
+      contentType: application/json
+      schema: ${file(src/validatorSchemas/createItemRequest.json)}
+    - name: UpdateItemRequest
+      contentType: application/json
+      schema: ${file(src/validatorSchemas/updateItemRequest.json)}
 
   serverless-offline:
     httpPort: 3003
@@ -85,12 +85,12 @@ functions:
           path: feed
           cors: true
           authorizer: Auth
-          # reqValidatorName: RequestBodyValidator
-          # documentation:
-          #   summary: Create a new todo
-          #   description: Create a new todo
-          #   requestModels:
-          #     'application/json': CreateTodoRequest
+          reqValidatorName: RequestBodyValidator
+          documentation:
+            summary: Create a new item
+            description: Create a new item
+            requestModels:
+              'application/json': CreateItemRequest
 #     iamRoleStatementsName: createTodo-role
 #     iamRoleStatements:
 #       - Effect: "Allow"        
@@ -111,12 +111,12 @@ functions:
           path: feed/{itemId}
           cors: true
           authorizer: Auth
-          # reqValidatorName: RequestBodyValidator
-          # documentation:
-          #   summary: Update a todo
-          #   description: Update a todo
-          #   requestModels:
-          #     'application/json': UpdateTodoRequest
+          reqValidatorName: RequestBodyValidator
+          documentation:
+            summary: Update an item
+            description: Update an item
+            requestModels:
+              'application/json': UpdateItemRequest
     # iamRoleStatementsName: updateTodo-role
     # iamRoleStatements:
     #   - Effect: "Allow"        
