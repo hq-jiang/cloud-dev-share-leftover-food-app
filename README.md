@@ -12,6 +12,17 @@ Endpoints:
 - DELETE - https://b9rsz7l5g9.execute-api.eu-central-1.amazonaws.com/dev/feed/{itemId}
 - POST - https://b9rsz7l5g9.execute-api.eu-central-1.amazonaws.com/dev/feed/{itemId}/attachment
 
+This project demonstrates the usage of:
+- serverless framework
+- serverless offline 
+- AWS lambda architecture
+- API Gateway REST-API and validations
+- Authentication and authorization with Auth0
+- DynamoDB integration
+- S3 signedUrl Upload
+- AWS X-Ray
+- Ports and Adapter Architecture (separation of business and data layer)
+
 ## Instructions with Postman
 
 1. Authenticate postman
