@@ -1,11 +1,17 @@
 import 'source-map-support/register'
 
 import { APIGatewayProxyEvent, APIGatewayProxyHandler, APIGatewayProxyResult } from 'aws-lambda'
-import { getFeed } from '../../businessLogic/items'
+import { CreateItemRequest } from '../../requests/CreateItemRequest'
+import { getUserId } from '../../lambda/utils'
+import { createItem } from '../../businessLogic/items'
+
 
 export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
+  const newTodo: CreateItemRequest = JSON.parse(event.body)
+  const userId : string = 'user1234' // getUserId(event)
 
-  const item = await getFeed()
+  // TODO: Implement creating a new TODO item
+  const item = await createItem(newTodo, userId)
 
   return {
     statusCode: 201,
