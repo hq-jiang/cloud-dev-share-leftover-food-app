@@ -53,10 +53,9 @@ custom:
 #     directory: /tmp
 
 functions:
-#   Auth:
-#     handler: src/lambda/auth/auth0Authorizer.handler
+  Auth:
+    handler: src/lambda/auth/auth0Authorizer.handler
 
-#   # TODO: Configure this function
   GetFeed:
     handler: src/lambda/http/getFeed.handler
     events:
@@ -64,7 +63,7 @@ functions:
           method: get
           path: feed
           cors: true
-          # authorizer: Auth
+          authorizer: Auth
 #     iamRoleStatementsName: getTodo-role
 #     iamRoleStatements:
 #       - Effect: "Allow"        
@@ -85,7 +84,7 @@ functions:
           method: post
           path: feed
           cors: true
-          # authorizer: Auth
+          authorizer: Auth
           # reqValidatorName: RequestBodyValidator
           # documentation:
           #   summary: Create a new todo
@@ -111,7 +110,7 @@ functions:
           method: patch
           path: feed/{itemId}
           cors: true
-          # authorizer: Auth
+          authorizer: Auth
           # reqValidatorName: RequestBodyValidator
           # documentation:
           #   summary: Update a todo
@@ -138,7 +137,7 @@ functions:
           method: delete
           path: feed/{itemId}
           cors: true
-          # authorizer: Auth
+          authorizer: Auth
     # iamRoleStatementsName: deleteItem-role
     # iamRoleStatements:
     #   - Effect: "Allow"        
