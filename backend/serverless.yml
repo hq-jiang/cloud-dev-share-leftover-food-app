@@ -19,9 +19,9 @@ provider:
     INDEX_NAME: UserIdIndex
     ATTACHMENT_S3_BUCKET: share-leftovers-aeon-${self:provider.stage}
 
-#   tracing:
-#     lambda: true
-#     apiGateway: true
+  tracing:
+    lambda: true
+    apiGateway: true
 
 custom:
   models:
@@ -70,11 +70,11 @@ functions:
         Action:
           - dynamodb:Scan        
         Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.ITEMS_TABLE}
-      # - Effect: Allow
-#         Action:
-#           - xray:PutTraceSegments
-#         Resource:
-#           - "*"
+      - Effect: Allow
+        Action:
+          - xray:PutTraceSegments
+        Resource:
+          - "*"
   GetUserItems:
     handler: src/lambda/http/getUserItems.handler
     events:
@@ -89,11 +89,11 @@ functions:
         Action:
           - dynamodb:Query        
         Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.ITEMS_TABLE}/index/${self:provider.environment.INDEX_NAME}
-  #       - Effect: Allow
-  #         Action:
-  #           - xray:PutTraceSegments
-  #         Resource:
-  #           - "*"
+      - Effect: Allow
+        Action:
+          - xray:PutTraceSegments
+        Resource:
+          - "*"
 
   CreateItems:
     handler: src/lambda/http/createItem.handler
@@ -115,11 +115,11 @@ functions:
         Action:
           - dynamodb:PutItem        
         Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.ITEMS_TABLE}
-#       - Effect: Allow
-#         Action:
-#           - xray:PutTraceSegments
-#         Resource:
-#           - "*"
+      - Effect: Allow
+        Action:
+          - xray:PutTraceSegments
+        Resource:
+          - "*"
 
   UpdateItem:
     handler: src/lambda/http/updateItem.handler
@@ -142,11 +142,11 @@ functions:
           - dynamodb:UpdateItem
           - dynamodb:Query     
         Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.ITEMS_TABLE}
-    #   - Effect: Allow
-    #     Action:
-    #       - xray:PutTraceSegments
-    #     Resource:
-    #       - "*"
+      - Effect: Allow
+        Action:
+          - xray:PutTraceSegments
+        Resource:
+          - "*"
 
   DeleteItem:
     handler: src/lambda/http/deleteItem.handler
@@ -163,11 +163,11 @@ functions:
           - dynamodb:DeleteItem
           - dynamodb:Query     
         Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.ITEMS_TABLE}
-#       - Effect: Allow
-#         Action:
-#           - xray:PutTraceSegments
-#         Resource:
-#           - "*"
+      - Effect: Allow
+        Action:
+          - xray:PutTraceSegments
+        Resource:
+          - "*"
 
   GenerateUploadUrl:
     handler: src/lambda/http/generateUploadUrl.handler
@@ -189,11 +189,11 @@ functions:
           - dynamodb:UpdateItem
           - dynamodb:Query     
         Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.ITEMS_TABLE}
-#       - Effect: Allow
-#         Action:
-#           - xray:PutTraceSegments
-#         Resource:
-#           - "*"
+      - Effect: Allow
+        Action:
+          - xray:PutTraceSegments
+        Resource:
+          - "*"
 
 
 resources:
