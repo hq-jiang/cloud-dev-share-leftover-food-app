@@ -6,6 +6,7 @@ This app lets users share images of their leftover food. Other people can contac
 Users are able to login, get, update and delete their items. And can also upload images.
 
 Endpoints:
+- GET - https://b9rsz7l5g9.execute-api.eu-central-1.amazonaws.com/dev/feed
 - GET - https://b9rsz7l5g9.execute-api.eu-central-1.amazonaws.com/dev/useritems
 - POST - https://b9rsz7l5g9.execute-api.eu-central-1.amazonaws.com/dev/feed
 - PATCH - https://b9rsz7l5g9.execute-api.eu-central-1.amazonaws.com/dev/feed/{itemId}
@@ -57,6 +58,7 @@ This project demonstrates the usage of:
 ### How to use Postman collection
 
 Example workflow:
+0. Get feed (No auth needed)
 1. Create two items
 2. Get user items
 3. Update one item by giving a itemId (get this from previous request 2.)

@@ -6,6 +6,24 @@
 	},
 	"item": [
 		{
+			"name": "Get Feed",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://{{apiEndpoint}}/feed",
+					"protocol": "http",
+					"host": [
+						"{{apiEndpoint}}"
+					],
+					"path": [
+						"feed"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "Get user items",
 			"request": {
 				"method": "GET",
@@ -200,7 +218,7 @@
 	],
 	"variable": [
 		{
-			"id": "6a6d1e4d-8d9b-421b-8c13-12fe27f08efd",
+			"id": "109e75aa-2b43-485b-8345-f5e910957361",
 			"key": "apiEndpoint",
 			"value": "b9rsz7l5g9.execute-api.eu-central-1.amazonaws.com/dev",
 			"type": "string"

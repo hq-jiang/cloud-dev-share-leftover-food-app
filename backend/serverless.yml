@@ -56,25 +56,24 @@ functions:
   Auth:
     handler: src/lambda/auth/auth0Authorizer.handler
 
-  # GetFeed:
-  #   handler: src/lambda/http/getFeed.handler
-  #   events:
-  #     - http:
-  #         method: get
-  #         path: feed
-  #         cors: true
-  #         authorizer: Auth
-  #   iamRoleStatementsName: getFeed-role
-  #   iamRoleStatements:
-  #     - Effect: "Allow"
-  #       Action:
-  #         - dynamodb:Scan
-  #       Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.ITEMS_TABLE}
-  #     - Effect: Allow
-  #       Action:
-  #         - xray:PutTraceSegments
-  #       Resource:
-  #         - "*"
+  GetFeed:
+    handler: src/lambda/http/getFeed.handler
+    events:
+      - http:
+          method: get
+          path: feed
+          cors: true
+    iamRoleStatementsName: getFeed-role
+    iamRoleStatements:
+      - Effect: "Allow"
+        Action:
+          - dynamodb:Scan
+        Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.ITEMS_TABLE}
+      - Effect: Allow
+        Action:
+          - xray:PutTraceSegments
+        Resource:
+          - "*"
   GetUserItems:
     handler: src/lambda/http/getUserItems.handler
     events:
