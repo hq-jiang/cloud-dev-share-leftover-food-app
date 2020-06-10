@@ -1,0 +1,192 @@
+{
+	"info": {
+		"_postman_id": "639c91e2-f01d-44da-80c7-5f7b181e76f6",
+		"name": "Share-Leftovers",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get user items",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://{{apiEndpoint}}/useritems",
+					"protocol": "http",
+					"host": [
+						"{{apiEndpoint}}"
+					],
+					"path": [
+						"useritems"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create item",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Chilli\",\n    \"description\": \"Leftover chillis from yesterday\",\n    \"contact\": \"user@email.com\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{apiEndpoint}}/feed",
+					"protocol": "https",
+					"host": [
+						"{{apiEndpoint}}"
+					],
+					"path": [
+						"feed"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update item",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Rotten Chilli\",\n    \"description\": \"Leftover chillis from yesterday\",\n    \"contact\": \"user@email.com\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{apiEndpoint}}/feed/{{replace_with_itemId}}",
+					"protocol": "http",
+					"host": [
+						"{{apiEndpoint}}"
+					],
+					"path": [
+						"feed",
+						"{{replace_with_itemId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete item",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://{{apiEndpoint}}/feed/{{replace_with_itemId}}",
+					"protocol": "http",
+					"host": [
+						"{{apiEndpoint}}"
+					],
+					"path": [
+						"feed",
+						"{{replace_with_itemId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Upload Url",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://{{apiEndpoint}}/feed/{{itemId}}/attachment",
+					"protocol": "http",
+					"host": [
+						"{{apiEndpoint}}"
+					],
+					"path": [
+						"feed",
+						"{{itemId}}",
+						"attachment"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Upload file",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "file",
+					"file": {
+						"src": ""
+					}
+				},
+				"url": {
+					"raw": "{{generatedUploadUrl}}",
+					"host": [
+						"{{generatedUploadUrl}}"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "oauth2",
+		"oauth2": [
+			{
+				"key": "accessToken",
+				"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6Il94SEtnUnVkOWItR1oyWkRkdklXaCJ9.eyJpc3MiOiJodHRwczovL2Rldi1rbWRjZ2YteC5ldS5hdXRoMC5jb20vIiwic3ViIjoiYXV0aDB8NWVkMmE5ZmE3MzA4MzAwYzFlYTIwMmNmIiwiYXVkIjoiYUN3TU9RSktTOUJQSldEa3lPZTNBbGMyS0U2RTlRdHkiLCJpYXQiOjE1OTE3OTk2ODEsImV4cCI6MTU5MTgzNTY4MX0.hMJlMD298v7FFRNwgmOlp22nJsOwBkKiNvEMzeFm2gI7WG6TwHmUWq_5AqX51lA5kCWYu5lfwdElpIzv6kFb8SAb6eLLdaKJTKRPJHzSBH1dZWzCGR-6QmxsbPrrwdjfQIKIAcnFR4t5tOrMCsRhnFdXDpDRTILpzuRqiRJGlQ5PzEdqONNKTizGyHUViyAYRoGyYyPEp409_cbEJnB7U0tG8yMcoXHmkJzR-s71OdlgKYPZp7e8KOraZ9ddOqRmTvFHHmDpF7E4o-gnwYHB_yapadQNneUxf95y2C-IQSOS1toUp642Sb6yPjB5YKwm6oiyLN8VX2-yT1rDBXKCXg",
+				"type": "string"
+			},
+			{
+				"key": "tokenType",
+				"value": "Bearer",
+				"type": "string"
+			},
+			{
+				"key": "addTokenTo",
+				"value": "header",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "a2fd5c4a-fd7c-432a-a8bd-3d9e0e47ed44",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "f7c754ab-d341-4bfd-bb05-3dfe96d8ecc7",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"id": "a42940ff-a0df-4cb9-91bd-10592b1feb47",
+			"key": "apiEndpoint",
+			"value": "b9rsz7l5g9.execute-api.eu-central-1.amazonaws.com/dev",
+			"type": "string"
+		}
+	],
+	"protocolProfileBehavior": {}
+}
