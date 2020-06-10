@@ -6,8 +6,11 @@ import { ItemUpdate } from  '../models/ItemUpdate'
 const AWS = require('aws-sdk')
 const AWSX = useAWSX()
 
-const TABLENAME : string = process.env.ITEMS_TABLE;
+// Read env variables
+const TABLENAME : string = process.env.ITEMS_TABLE
+const INDEXNAME: string = process.env.INDEX_NAME
 // const s3BucketName = process.env.ATTACHMENT_S3_BUCKET
+
 const logger = createLogger('dataLayer-itemsAccess')
 
 export class ItemsAccess {
@@ -28,19 +31,20 @@ export class ItemsAccess {
     return item
   }
 
-  // async getUserItems() : Promise<any>{
-  //   const params = {
-  //     TableName: process.env.TODOS_TABLE,
-  //     IndexName: process.env.INDEX_NAME,
-  //     KeyConditionExpression: 'userId = :loggedInUser',
-  //     ExpressionAttributeValues: {
-  //       ':loggedInUser': userId,
-  //     }
-  //   }
-  //   const todos = await this.documentClient.query(params).promise()
-  //   logger.info('Get all todos', todos)
-  //   return todos
-  // }
+  async getUserItems(userId: string) : Promise<any>{
+    const params = {
+      TableName: TABLENAME,
+      IndexName: INDEXNAME,
+      KeyConditionExpression: 'userId = :loggedInUser',
+      ExpressionAttributeValues: {
+        ':loggedInUser': userId,
+      }
+    }
+    logger.info('Getting all user items')
+    const items = await this.documentClient.query(params).promise()
+    logger.info('Got all user items', items)
+    return items
+  }
 
   async getFeed() : Promise<any>{
     var params = {

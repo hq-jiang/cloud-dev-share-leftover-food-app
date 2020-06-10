@@ -1,21 +1,23 @@
 import 'source-map-support/register'
 
 import { APIGatewayProxyEvent, APIGatewayProxyResult, APIGatewayProxyHandler } from 'aws-lambda'
-import { deleteItem } from '../../businessLogic/items'
+import { getUserId } from '../../lambda/utils';
+import { getUserItems } from '../../businessLogic/items'
 
 export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
-
+  
   try {
-    const itemId = event.pathParameters.itemId
-    const item = await deleteItem(itemId)
-    
+    const userId : string = getUserId(event)
+    const items = await getUserItems(userId)
     return {
       statusCode: 200,
       headers: {
         'Access-Control-Allow-Origin': '*',
         'Access-Control-Allow-Credentials': true
       },
-      body: JSON.stringify(item)
+      body: JSON.stringify({
+        items: items.Items
+      })
     }
   } catch (error) {
     return {
@@ -27,7 +29,4 @@ export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEven
       body: JSON.stringify(error)
     }
   }
-  
-
-  
 }

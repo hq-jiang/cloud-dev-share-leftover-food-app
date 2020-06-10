@@ -33,16 +33,16 @@ export async function createItem(newItem: CreateItemRequest, userId: string): Pr
 
 export async function deleteItem(itemId: string): Promise<any>{
   
-  const todo = await itemsAccess.deleteItem(itemId)
-  return todo
+  const item = await itemsAccess.deleteItem(itemId)
+  return item
 }
 
-// export async function getTodos(userId: string): Promise<any>{
-//   logger.info('Query db for todos')
+export async function getUserItems(userId: string): Promise<any>{
+  logger.info('Query db for items')
 
-//   const todos = await todosAccess.getTodos(userId)
-//   return todos
-// }
+  const items = await itemsAccess.getUserItems(userId)
+  return items
+}
 
 export async function updateItem(todoId: string, updatedItem: UpdateItemRequest) {
   logger.info('update body', updatedItem)

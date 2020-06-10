@@ -7,11 +7,11 @@ import { createItem } from '../../businessLogic/items'
 
 
 export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
-  const newTodo: CreateItemRequest = JSON.parse(event.body)
-  const userId : string = 'user1234' // getUserId(event)
+  
 
-  // TODO: Implement creating a new TODO item
   try {
+    const newTodo: CreateItemRequest = JSON.parse(event.body)
+    const userId : string = getUserId(event)
     const item = await createItem(newTodo, userId)
 
     return {
@@ -31,9 +31,7 @@ export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEven
         'Access-Control-Allow-Origin': '*',
         'Access-Control-Allow-Credentials': true
       },
-      body: JSON.stringify({
-        error
-      })
+      body: JSON.stringify(error)
     }
   }
   

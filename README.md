@@ -4,6 +4,7 @@
 ### How to authenticate in Postman
 
 1. Go to the `Authorization` tab in the Postman collection. All requests will inherit this authorization method
+![alt text](./docs/auth_instructions_5.png)
 2. Select Type `OAuth2.0` and `Request Headers`
 ![alt text](./docs/auth_instructions_0.png)
 3. Select `Get New Access Token`

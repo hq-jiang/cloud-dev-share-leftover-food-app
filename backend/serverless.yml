@@ -75,6 +75,25 @@ functions:
 #           - xray:PutTraceSegments
 #         Resource:
 #           - "*"
+  GetUserItems:
+    handler: src/lambda/http/getUserItems.handler
+    events:
+      - http:
+          method: get
+          path: useritems
+          cors: true
+          authorizer: Auth
+  #     iamRoleStatementsName: getTodo-role
+  #     iamRoleStatements:
+  #       - Effect: "Allow"        
+  #         Action:
+  #           - dynamodb:Query        
+  #         Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.TODOS_TABLE}/index/${self:provider.environment.INDEX_NAME}
+  #       - Effect: Allow
+  #         Action:
+  #           - xray:PutTraceSegments
+  #         Resource:
+  #           - "*"
 
   # TODO: Configure this function
   CreateTodo:
