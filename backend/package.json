@@ -37,7 +37,7 @@
   "dependencies": {
     "aws-xray-sdk": "^3.0.1",
     "serverless": "^1.72.0",
-    "serverless-dynamodb-local": "^0.2.39",
+    "serverless-dynamodb-local": "^1.0.2",
     "serverless-reqvalidator-plugin": "^1.0.3",
     "source-map-support": "^0.5.19",
     "uuid": "^8.1.0"
